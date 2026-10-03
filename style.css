@@ -1,0 +1,323 @@
+/* ============================================================
+   BharatAI — ChatGPT-style theme
+   Clean white canvas, light-grey sidebar, centered chat column,
+   pill-shaped message bar, plain assistant text, grey user bubbles.
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --bg: #ffffff;
+    --sidebar: #f9f9f9;
+    --hover: #ececec;
+    --bubble: #f4f4f4;
+    --line: #e5e5e5;
+    --text: #0d0d0d;
+    --muted: #6e6e80;
+    --accent: #0d0d0d;
+    --col: 760px;
+}
+
+html, body, .stApp, [class*="st-"] {
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+}
+
+.stApp {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* hide Streamlit chrome */
+#MainMenu, footer { visibility: hidden; }
+header[data-testid="stHeader"] { background: transparent; }
+[data-testid="stToolbar"], [data-testid="stDecoration"] { display: none; }
+
+/* centered column like ChatGPT */
+.main .block-container {
+    max-width: var(--col);
+    padding: 2rem 1.25rem 9rem 1.25rem;
+}
+
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+
+section[data-testid="stSidebar"] {
+    background: var(--sidebar);
+    border-right: 1px solid var(--line);
+}
+
+section[data-testid="stSidebar"] > div {
+    padding: 1rem 0.75rem;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 8px 12px;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.brand-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--text);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.side-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 16px 10px 6px;
+}
+
+.side-empty {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 0 10px;
+}
+
+section[data-testid="stSidebar"] .stButton > button {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+    background: transparent;
+    color: var(--text);
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem 0.7rem;
+    font-size: 14.5px;
+    font-weight: 400;
+    box-shadow: none;
+    transition: background .12s ease;
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background: var(--hover);
+    color: var(--text);
+}
+
+section[data-testid="stSidebar"] .stButton > button p {
+    margin: 0;
+    font-size: 14.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* "New chat" button */
+.st-key-new_chat button {
+    font-weight: 500 !important;
+}
+
+section[data-testid="stSidebar"] .stButton > button:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 1px;
+}
+
+.side-footer {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 24px 10px 0;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   EMPTY STATE (greeting)
+============================================================ */
+
+.greeting {
+    text-align: center;
+    padding: 18vh 0 28px;
+}
+
+.greeting-title {
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    line-height: 1.25;
+}
+
+.greeting-sub {
+    color: var(--muted);
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+
+/* ============================================================
+   SUGGESTION CHIPS (main-area buttons)
+============================================================ */
+
+.main .stButton > button {
+    width: 100%;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 0.85rem 1rem;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-align: left;
+    justify-content: flex-start;
+    box-shadow: none;
+    transition: background .12s ease;
+}
+
+.main .stButton > button:hover {
+    background: var(--sidebar);
+    border-color: #d4d4d4;
+    color: var(--text);
+}
+
+.main .stButton > button p {
+    margin: 0;
+    font-size: 14.5px;
+}
+
+.main .stButton > button:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+}
+
+
+/* ============================================================
+   MESSAGES
+============================================================ */
+
+[data-testid="stChatMessage"] {
+    background: transparent;
+    padding: 0.9rem 0;
+    gap: 14px;
+}
+
+[data-testid="stChatMessage"] p,
+[data-testid="stChatMessage"] li {
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* user: right-aligned grey bubble, no avatar */
+[data-testid="stChatMessageAvatarUser"] {
+    display: none;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
+    flex-direction: row-reverse;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) > div:last-child {
+    background: var(--bubble);
+    padding: 10px 18px;
+    border-radius: 22px;
+    max-width: 75%;
+    flex: 0 1 auto;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) p {
+    margin: 0;
+}
+
+/* assistant: plain text with small round avatar */
+[data-testid="stChatMessageAvatarAssistant"] {
+    width: 30px;
+    height: 30px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+}
+
+[data-testid="stChatMessage"] table {
+    display: block;
+    overflow-x: auto;
+}
+
+[data-testid="stSpinner"] {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+
+/* ============================================================
+   MESSAGE BAR (pinned to bottom)
+============================================================ */
+
+[data-testid="stBottom"] > div {
+    background: linear-gradient(to top, #fff 75%, rgba(255, 255, 255, 0));
+    padding-bottom: 0.5rem;
+}
+
+[data-testid="stBottomBlockContainer"] {
+    max-width: var(--col);
+}
+
+[data-testid="stChatInput"] {
+    background: var(--bubble);
+    border: none;
+    border-radius: 28px;
+    box-shadow: none;
+}
+
+[data-testid="stChatInput"]:focus-within {
+    box-shadow: 0 0 0 1px #d0d0d0;
+}
+
+[data-testid="stChatInput"] textarea {
+    background: transparent;
+    font-size: 16px;
+    padding: 16px 20px;
+}
+
+[data-testid="stChatInput"] button {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+}
+
+[data-testid="stChatInput"] button:hover {
+    background: #3a3a3a;
+}
+
+.disclaimer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 6px;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 767px) {
+    .main .block-container {
+        padding: 1.2rem 0.9rem 9rem 0.9rem;
+    }
+
+    .greeting { padding: 10vh 0 20px; }
+    .greeting-title { font-size: 25px; }
+
+    [data-testid="stChatMessage"] p,
+    [data-testid="stChatMessage"] li {
+        font-size: 15.5px;
+    }
+
+    [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) > div:last-child {
+        max-width: 88%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}
